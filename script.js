@@ -1,4 +1,25 @@
 // PAGE
+function invertRgbColor(rgb) {
+  const nums = rgb.match(/\d+/g)?.map(Number);
+  if (!nums || nums.length !== 3) return null;
+  const inverted = nums.map(c => 255 - c);
+  return `rgb(${inverted.join(', ')})`;
+}
+
+function updateInvertedColor() {
+  const root = document.documentElement;
+  const mainColor = getComputedStyle(root).getPropertyValue('--main-text-color').trim();
+
+  const inverted = invertRgbColor(mainColor);
+  if (inverted) {
+    root.style.setProperty('--inverted-text-color', inverted);
+  }
+
+  requestAnimationFrame(updateInvertedColor);
+}
+
+requestAnimationFrame(updateInvertedColor);
+
 const fullpage = document.getElementById('fullpage');
 const totalSections = 3;
 let current = 0;
