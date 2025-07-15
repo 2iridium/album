@@ -9,6 +9,22 @@
 }
 
 @media (max-width: 768px) {
+  html, body {
+    overflow-y: auto !important;
+    height: auto !important;
+    overscroll-behavior-y: contain;
+  }
+
+  #fullpage {
+    transform: none !important;
+    transition: none !important;
+    display: block;
+  }
+
+  .section {
+    height: auto !important;
+    min-height: 100vh;
+  }
   .section-1 {
     background-size: 200% auto !important;
     background-position: center center !important;
