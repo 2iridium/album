@@ -1,4 +1,31 @@
 // PAGE
+const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+if (!isMobile) {
+  window.addEventListener('wheel', e => {
+    e.preventDefault();
+    if (busy) return;
+    if (e.deltaY > 0 && current < totalSections - 1) {
+      current++;
+      scrollToSection(current);
+    } else if (e.deltaY < 0 && current > 0) {
+      current--;
+      scrollToSection(current);
+    }
+  });
+
+  window.addEventListener('keydown', e => {
+    if (busy) return;
+    if ((e.key === 'ArrowDown' || e.key === 'PageDown') && current < totalSections - 1) {
+      current++;
+      scrollToSection(current);
+    } else if ((e.key === 'ArrowUp' || e.key === 'PageUp') && current > 0) {
+      current--;
+      scrollToSection(current);
+    }
+  });
+}
+
 function invertRgbColor(rgb) {
   const nums = rgb.match(/\d+/g)?.map(Number);
   if (!nums || nums.length !== 3) return null;
@@ -30,28 +57,6 @@ const scrollToSection = idx => {
   fullpage.style.transform = `translateY(-${idx * 100}vh)`;
   setTimeout(() => busy = false, 800);
 };
-
-window.addEventListener('wheel', e => { 
-  if (busy) return;
-  if (e.deltaY > 0 && current < totalSections - 1) {
-    current++;
-    scrollToSection(current);
-  } else if (e.deltaY < 0 && current > 0) {
-    current--;
-    scrollToSection(current);
-  }
-});
-
-window.addEventListener('keydown', e => {
-  if (busy) return;
-  if ((e.key === 'ArrowDown' || e.key === 'PageDown') && current < totalSections - 1) {
-    current++;
-    scrollToSection(current);
-  } else if ((e.key === 'ArrowUp' || e.key === 'PageUp') && current > 0) {
-    current--;
-    scrollToSection(current);
-  }
-});
 
 let isMiddleButtonDown = false;
 let lastMouseY = 0;
