@@ -39,6 +39,9 @@
   body, html {
     background-color: var(--inverted-text-color);
   }
+  .platform-icons a img {
+    height: 45px !important;
+  }
 }
 
 html, body {
